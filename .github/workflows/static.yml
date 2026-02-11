@@ -9,11 +9,14 @@ permissions:
   pages: write
   id-token: write
 
+# ... (начало файла остается прежним)
+
 jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      # Ссылаемся на новый ID шага:
+      url: ${{ steps.gh-deploy.outputs.page_url }} 
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -34,8 +37,6 @@ jobs:
         with:
           path: './dist'
       - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
-      - name: Deploy to GitHub Pages
-        id: deployment
+        # Изменяем ID здесь, чтобы он не конфликтовал:
+        id: gh-deploy 
         uses: actions/deploy-pages@v4
