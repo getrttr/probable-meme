@@ -5,14 +5,17 @@ import react from '@vitejs/plugin-react';
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, '.', '');
     return {
+      base: '/название-репозитория/', 
+      
       server: {
         port: 3000,
         host: '0.0.0.0',
-      }, // <- Тут не хватало скобки
+      },
       resolve: {
         alias: {
           '@': path.resolve(__dirname, '.'),
         },
-      }, // <- И тут тоже
+      },
+      plugins: [react()], 
     };
 });
